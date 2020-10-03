@@ -32,15 +32,11 @@
 #             users[todo['author']['login']] = 1
 #         except TypeError:
 #             pass
-#     top_users = sorted(users.items(), 
+#     top_users = sorted(users.items(),
 #                    key=lambda x: x[1], reverse=True)
 #     if len(top_users)>=30: top_users=top_users[:30]
 #     # top_users = pd.DataFrame(top_users, columns=['author','commits'])
 #     print(top_users)
-
-
-
-
 
 
 #     # def num_pages(num_of_comm1):
@@ -52,10 +48,6 @@
 #     #     return page[1]
 
 
-
-
-
-
 # if __name__ == '__main__':
 #     print("Enter date since")
 #     since= '2010-11-01T00:00:00Z'
@@ -63,24 +55,36 @@
 #     until = 'Jun 28 2020 at 7:40AM'
 #     investigate(since, until)
 import dateutil.parser as parser
-def investigate( until,since=None, link="https://api.github.com/repos/django/django",branch='master') :
-    # since, until = parser.parse(since).isoformat(), parser.parse(until).isoformat()
-    print('Searching in period: since={} until={}'.format(since, until))
-    if since: 
-        since= '&since='+ parser.parse(since).isoformat() 
-    else: 
-        since= ''
-    if until: 
-        until= '&until='+ parser.parse(until).isoformat() 
-    else: 
-        until= ''
-    params = {'since': since, 'until': until, 'branch': branch}
-    num_of_comm_url = '{0}/commits?sha={1}{2}{3}&page=1&per_page=1'.format(link,branch,since,until)
-    print(num_of_comm_url)
+import dateutil
 
-if __name__ == '__main__':
+def investigate(
+    until,
+    since=None,
+    link="https://api.github.com/repos/django/django",
+    branch="master",
+):
+    # since, until = parser.parse(since).isoformat(), parser.parse(until).isoformat()
+    print("Searching in period: since={} until={}".format(since, until))
+    # if since:
+    #     since = "&since=" + parser.parse(since).isoformat()
+    # else:
+    #     since = ""
+    # if until:
+    #     until = "&until=" + parser.parse(until).isoformat()
+    # else:
+    #     until = ""
+    # # if until: print( 'until',until)
+    # # if since: print( 'since',since)
+    # link = "https://github.com/fastlane/fastlane"
+    # # https://github.com/fastlane/fastlane
+    # owner, repo = link.split("/")[3:5]
+    # print(owner, repo)
+    d2 =  parser.parse(since).date() - dateutil.relativedelta.relativedelta(days=30)
+    print(d2)
+
+if __name__ == "__main__":
     print("Enter date since")
-    since= '2010-11-01T00:00:00Z'
+    since = "2010-11-01T00:00:00Z"
     print("Enter date until")
-    until = ''
-    investigate(since, until)
+    until = ""
+    investigate(until, since)
